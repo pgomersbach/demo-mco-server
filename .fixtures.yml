@@ -7,4 +7,4 @@ fixtures:
 # default module layout
 
   symlinks:
-    demo_mco_client: "#{source_dir}"
+    demo_mco_server: "#{source_dir}"
