@@ -18,4 +18,23 @@ class demo_mco_server::install {
     middleware_password => 'changeme',
   }
 
+  $mco_packeges = [ 'mcollective-plugins-puppetral', 'mcollective-plugins-process', 'mcollective-plugins-package', 'mcollective-plugins-service', 'mcollective-plugins-nrpe', 'mcollective-pl
+ugins-filemgr', 'mcollective-plugins-facts-facter' ]
+  package { $mco_packeges:
+    ensure  => installed,
+    require => Class[ '::mcollective' ],
+  }
+
+  file { '/opt/puppetlabs/mcollective/mcollective/application':
+    ensure  => link,
+    target  => '/usr/share/mcollective/plugins/mcollective/application',
+    require => Package[ $mco_packeges ],
+  }
+
+  file { '/opt/puppetlabs/mcollective/mcollective/agent':
+    ensure  => link,
+    target  => '/usr/share/mcollective/plugins/mcollective/agent',
+    require => Package[ $mco_packeges ],
+  }
+
 }
