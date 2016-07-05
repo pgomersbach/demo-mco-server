@@ -1,8 +1,10 @@
 fixtures:
   repositories:
     stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
+    datacat: "https://github.com/richardc/puppet-datacat.git"
+    mcollective: "https://github.com/voxpupuli/puppet-mcollective.git"
  
 # default module layout
 
   symlinks:
-    demo_mco_server: "#{source_dir}"
+    demo_mco_client: "#{source_dir}"

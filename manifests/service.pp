@@ -9,10 +9,4 @@ class demo_mco_server::service {
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-  service { $::demo_mco_server::service_name:
-    ensure     => running,
-    enable     => true,
-    hasstatus  => true,
-    hasrestart => true,
-  }
 }

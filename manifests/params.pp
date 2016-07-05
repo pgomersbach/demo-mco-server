@@ -4,6 +4,7 @@
 # It sets variables according to platform.
 #
 class demo_mco_server::params {
+  $middleware_address = $::middleware_address
   case $::osfamily {
     'Debian': {
       $package_name = 'demo_mco_server'
