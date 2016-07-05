@@ -9,7 +9,7 @@ class demo_mco_server::install {
   }
 
   class { '::mcollective':
-    client              => false,
+    client              => true,
     manage_packages     => false,
     middleware_hosts    => [ $::middleware_address ],
     connector           => 'rabbitmq',
