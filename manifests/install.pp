@@ -18,6 +18,11 @@ class demo_mco_server::install {
     middleware_password => 'changeme',
   }
 
+  $mc_plugindir = $::osfamily ? {
+    'Debian' => '/opt/puppetlabs/mcollective/plugins/mcollective',
+    default  => '/usr/libexec/mcollective/mcollective',
+  }
+
   file{ 'plugindir':
     ensure  => directory,
     path    => '/opt/puppetlabs/mcollective/plugins',
