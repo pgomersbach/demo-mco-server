@@ -25,7 +25,7 @@ class demo_mco_server::install {
 
   file{ 'plugindir':
     ensure  => directory,
-    path    => '/opt/puppetlabs/mcollective/plugins',
+    path    => '/opt/puppetlabs/mcollective/mcollective',
     require => Class[ '::mcollective' ],
   }
 
