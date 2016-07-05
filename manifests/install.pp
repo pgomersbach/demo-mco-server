@@ -18,22 +18,17 @@ class demo_mco_server::install {
     middleware_password => 'changeme',
   }
 
-  $mco_packeges = [ 'mcollective-plugins-puppetral', 'mcollective-plugins-process', 'mcollective-plugins-package', 'mcollective-plugins-service', 'mcollective-plugins-nrpe', 'mcollective-plugins-filemgr', 'mcollective-plugins-facts-facter' ]
-  package { $mco_packeges:
-    ensure  => installed,
+  file{ 'plugindir':
+    ensure  => directory,
+    path    => '/opt/puppetlabs/mcollective/plugins',
     require => Class[ '::mcollective' ],
   }
 
-  file { '/opt/puppetlabs/mcollective/mcollective/application':
-    ensure  => link,
-    target  => '/usr/share/mcollective/plugins/mcollective/application',
-    require => Package[ $mco_packeges ],
-  }
-
-  file { '/opt/puppetlabs/mcollective/mcollective/agent':
-    ensure  => link,
-    target  => '/usr/share/mcollective/plugins/mcollective/agent',
-    require => Package[ $mco_packeges ],
+  file{ 'mco_plugins':
+    path    => $mc_plugindir,
+    source  => 'puppet:///modules/demo_mco_server/mcollective/plugins',
+    recurse => true,
+    require => [ Class[ '::mcollective' ], File['plugindir'] ],
   }
 
   mcollective::server::setting { 'override identity':
