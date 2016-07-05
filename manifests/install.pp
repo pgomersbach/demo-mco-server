@@ -19,21 +19,15 @@ class demo_mco_server::install {
   }
 
   $mc_plugindir = $::osfamily ? {
-    'Debian' => '/opt/puppetlabs/mcollective/plugins/mcollective',
+    'Debian' => '/opt/puppetlabs/mcollective/mcollective',
     default  => '/usr/libexec/mcollective/mcollective',
-  }
-
-  file{ 'plugindir':
-    ensure  => directory,
-    path    => '/opt/puppetlabs/mcollective/mcollective',
-    require => Class[ '::mcollective' ],
   }
 
   file{ 'mco_plugins':
     path    => $mc_plugindir,
     source  => 'puppet:///modules/demo_mco_server/mcollective/plugins',
     recurse => true,
-    require => [ Class[ '::mcollective' ], File['plugindir'] ],
+    require => Class[ '::mcollective' ],
   }
 
   mcollective::server::setting { 'override identity':
