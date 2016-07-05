@@ -25,11 +25,11 @@ describe 'demo_mco_server class' do
 
 
     # default module tests
-    describe package('demo_mco_server') do
+    describe package('puppet-client') do
       it { is_expected.to be_installed }
     end
 
-    describe service('demo_mco_server') do
+    describe service('mcollective') do
       it { is_expected.to be_enabled }
       it { is_expected.to be_running }
     end
