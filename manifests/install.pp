@@ -36,4 +36,14 @@ class demo_mco_server::install {
     require => Package[ $mco_packeges ],
   }
 
+  mcollective::server::setting { 'override identity':
+    setting => 'identity',
+    value   => $::fqdn,
+  }
+
+  mcollective::server::setting { 'set heartbeat_interval':
+    setting => 'plugin.rabbitmq.heartbeat_interval',
+    value   => '30',
+    order   => '50',
+  }
 }
