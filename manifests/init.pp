@@ -18,6 +18,7 @@ class demo_mco_server
   validate_string($package_name)
   validate_string($service_name)
 
+  include ::demo_mco_server::rspec_monitor
   class { '::demo_mco_server::install': } ->
   class { '::demo_mco_server::config': } ~>
   class { '::demo_mco_server::service': } ->

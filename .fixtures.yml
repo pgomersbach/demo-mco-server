@@ -3,6 +3,7 @@ fixtures:
     stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
     datacat: "https://github.com/richardc/puppet-datacat.git"
     mcollective: "https://github.com/voxpupuli/puppet-mcollective.git"
+    rspec_monitor: "https://github.com/pgomersbach/test-rspec_monitor.git"
  
 # default module layout
 
