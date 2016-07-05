@@ -12,8 +12,7 @@ module MCollective
         @agent = request.agent
         @caller = request.caller
         @action = request.action
-        @allow_unconfigured = !!(config.pluginconf.fetch('actionpolicy.allow_unconfigu
-red', 'n') =~ /^1|y/i)
+        @allow_unconfigured = !!(config.pluginconf.fetch('actionpolicy.allow_unconfigured', 'n') =~ /^1|y/i)
         @configdir = @config.configdir
       end
 
@@ -24,12 +23,10 @@ red', 'n') =~ /^1|y/i)
 
         # No policy file exists and allow_unconfigured is false
         if !policy_file && !@allow_unconfigured
-          deny('Could not load any valid policy files. Denying based on allow_unconfig
-ured: %s' % @allow_unconfigured)
+          deny('Could not load any valid policy files. Denying based on allow_unconfigured: %s' % @allow_unconfigured)
         # No policy exists but allow_unconfigured is true
         elsif !(policy_file) && @allow_unconfigured
-          Log.debug('Could not load any valid policy files. Allowing based on allow_un
-configured: %s' % @allow_unconfigured)
+          Log.debug('Could not load any valid policy files. Allowing based on allow_unconfigured: %s' % @allow_unconfigured)
           return true
         end
 
@@ -55,8 +52,7 @@ configured: %s' % @allow_unconfigured)
               if $1 == 'allow'
                 return true
               else
-                deny("Denying based on explicit 'deny' policy rule in policyfile: %s"
-% File.basename(policy_file))
+                deny("Denying based on explicit 'deny' policy rule in policyfile: %s" % File.basename(policy_file))
               end
             end
           else
@@ -64,8 +60,7 @@ configured: %s' % @allow_unconfigured)
           end
         end
 
-        allow || deny("Denying based on default policy in %s" % File.basename(policy_f
-ile))
+        allow || deny("Denying based on default policy in %s" % File.basename(policy_file))
       end
 
       # Check if a request made by a caller matches the state defined in the policy
@@ -160,8 +155,7 @@ ile))
         return policy_file if File.exist?(policy_file)
 
         if @config.pluginconf.fetch('actionpolicy.enable_default', 'n') =~ /^1|y/i
-          defaultname = @config.pluginconf.fetch('actionpolicy.default_name', 'default
-')
+          defaultname = @config.pluginconf.fetch('actionpolicy.default_name', 'default')
           default_file = File.join(@configdir, "policies", "#{defaultname}.policy")
 
           Log.debug("Initial lookup failed: looking for policy in #{default_file}")
@@ -178,8 +172,7 @@ ile))
         token_type = statement.keys.first
         token_value = statement.values.first
 
-        return token_value if (token_type != 'statement' && token_type != 'fstatement'
-)
+        return token_value if (token_type != 'statement' && token_type != 'fstatement')
 
         if token_type == 'statement'
             return lookup(token_value)
@@ -224,4 +217,3 @@ ile))
     end
   end
 end
-
