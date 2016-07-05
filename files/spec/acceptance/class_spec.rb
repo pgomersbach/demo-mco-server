@@ -25,7 +25,7 @@ describe 'demo_mco_server class' do
 
 
     # default module tests
-    describe package('puppet-client') do
+    describe package('puppet-agent') do
       it { is_expected.to be_installed }
     end
 
